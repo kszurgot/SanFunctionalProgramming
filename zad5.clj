@@ -49,3 +49,25 @@
 )
 
 (cube-root-by-newtons-method 27.0 1.0 0.00001 100)
+
+;; c
+(defn compose [f g]
+  (fn [x] (f (g x)))
+)
+
+((compose cube inc) 6) ;; (6+1)^3
+
+;; d
+(defn compose-repeated [f n]
+  (loop [
+         result identity
+         count 0
+        ]
+        (if (>= count n)
+            result
+            (recur (compose result f) (inc count))
+        )
+  )
+)
+
+((compose-repeated cube 2) 2) ;; (2^3)^3
